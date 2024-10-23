@@ -1,52 +1,67 @@
-
-
-/* Estilos básicos para el cuerpo */
+/* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #eaeaea; /* Color de fondo claro */
-    color: #333; /* Color del texto */
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9; /* Fondo suave */
+    color: #333;
     margin: 0;
     padding: 20px;
 }
 
-/* Estilos para el contenedor principal */
+/* Contenedor principal */
 .container {
-    max-width: 600px; /* Ancho máximo */
-    margin: auto; /* Centrado horizontal */
-    padding: 20px;
-    background-color: #fff; /* Fondo blanco */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para los encabezados */
+/* Estilo para títulos */
 h1 {
-    color: #4CAF50; /* Color verde */
-    text-align: center; /* Centrado del texto */
+    color: #3498db; /* Color atractivo para el título */
+    font-size: 2.5em;
+    text-align: center; /* Centrado */
+    margin-bottom: 20px;
 }
 
-/* Estilos para los enlaces */
+h2 {
+    color: #2980b9; /* Color para subtítulos */
+    font-size: 2em;
+    margin: 20px 0 10px;
+}
+
+/* Estilo de los enlaces */
 a {
-    display: block; /* Cada enlace en una línea */
-    margin: 10px 0; /* Espacio entre enlaces */
-    padding: 10px;
-    color: #007BFF; /* Color azul */
-    text-decoration: none; /* Sin subrayado */
-    border: 1px solid transparent; /* Borde invisible por defecto */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s, border-color 0.3s; /* Transición suave */
+    color: #e74c3c; /* Color de enlace vibrante */
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s; /* Transiciones suaves */
 }
 
 a:hover {
-    background-color: #f1f1f1; /* Color de fondo al pasar el ratón */
-    border-color: #007BFF; /* Borde azul al pasar el ratón */
-    color: #0056b3; /* Color más oscuro al pasar el ratón */
+    color: #c0392b; /* Color más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de aumento al pasar el mouse */
 }
 
-/* Estilos para el pie de página */
-footer {
-    text-align: center; /* Centrado del texto */
-    margin-top: 20px; /* Espacio superior */
-    font-size: 0.9em; /* Tamaño de fuente más pequeño */
-    color: #777; /* Color gris */
+/* Estilo para imágenes */
+a img {
+    max-width: 100%; /* Imágenes responsivas */
+    border-radius: 10px; /* Bordes redondeados */
+    margin: 10px 0; /* Espaciado */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilo para párrafos */
+p {
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+/* Estilo para listas */
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin: 10px 0;
 }
