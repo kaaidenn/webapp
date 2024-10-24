@@ -1,0 +1,24 @@
+{
+    "name": "Mi webapp",
+    "short_name": "webapp",
+    "description": "trabajo de clase",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "/assets/icons/favicons/web-app-manifest-192x192",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/assets/icons/favicons/web-app-manifest-512x512",
+        "type": "image/png",
+        "sizes": "512x512"
+
+      }
+    ]
+  }
+  
