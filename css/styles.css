@@ -3,7 +3,6 @@
 /* General reset */
 body,
 h3,
-p,
 ul,
 li,
 img,
@@ -15,12 +14,24 @@ button {
   padding: 0;
   box-sizing: border-box;
 }
-h1{
-    max-width: 100%;
-    height: 50%;
+h1 {
+  max-width: 100%;
+  height: 50%;
 }
 h2 {
   margin-left: 475px;
+}
+
+h4 {
+  margin-left: 200px;
+  font-size: larger;
+}
+
+P {
+  color: #120c13;
+  font-family: "Lexend", serif;
+  margin-left: 200px;
+  margin-right: 200px;
 }
 /* Body and general text styling */
 body {
