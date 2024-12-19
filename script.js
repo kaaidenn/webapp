@@ -1,163 +1,93 @@
-console.clear(); // Start with a clean console on refesh
-//--------------------------------//
-// Menu slide animation
-//--------------------------------//
-// Menu slide animation
-const navigationSlide = document.querySelector("#navigation-slide");
-const q = gsap.utils.selector(navigationSlide);
-const menuSlideAnimation = gsap.timeline({
-  paused: true,
-  reversed: true,
-  defaults: { duration: 0.2, ease: "power4.in" }
-});
-gsap.set(navigationSlide, { xPercent: 100 });
-// Animation
-menuSlideAnimation.set(navigationSlide, { autoAlpha: 1 });
-menuSlideAnimation.to(navigationSlide, { xPercent: 0, duration: 0.2 });
-menuSlideAnimation.from(q("ul li"), {
-  x: 100,
-  opacity: 0,
-  stagger: { amount: 0.3 }
-});
-menuSlideAnimation.from(q(".extra > *"), {
-  opacity: 0,
-  stagger: { amount: 0.3 }
-});
-// Menu toggle setup
-let tlMenuToggleAll = []; // Collect all menu buttons;
-const menuToggle = document.querySelectorAll(".menu-toggle");
-// Animation function
-function menuToggleAnimation(target) {
-  const q = gsap.utils.selector(target);
-  // Menu toggle animation
-  const tl = gsap.timeline({
-    paused: true,
-    reversed: true,
-    defaults: { duration: 0.3, ease: "power3.in" }
-  });
-  // // ---- Simple ----
-  // tl.to(q(".anim"), {rotate: gsap.utils.wrap([-45, 45])});
-  // tl.to(q(".anim"), { y: 0 }, "<");
-  // tl.to(q(".text"), { duration: 0.1, opacity: 0 }, "<");
+/**
+ * Set appropriate spanning to any masonry item
+ *
+ * Get different properties we already set for the masonry, calculate 
+ * height or spanning for any cell of the masonry grid based on its 
+ * content-wrapper's height, the (row) gap of the grid, and the size 
+ * of the implicit row tracks.
+ *
+ * @param item Object A brick/tile/cell inside the masonry
+ * @link https://w3bits.com/css-grid-masonry/
+ */
+function resizeMasonryItem(item){
+  /* Get the grid object, its row-gap, and the size of its implicit rows */
+  var grid = document.getElementsByClassName('masonry')[0];
+  if( grid ) {
+    var rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap')),
+        rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows')),
+        gridImagesAsContent = item.querySelector('img.masonry-content');
 
-  //   // ---- Spinning ----
-  //   tl.to(q(".inner"), { duration: 0.8, rotate: 360 * 3 });
-  //   tl.to(q(".anim"), { y: 0 }, "<");
-  //   tl.to(q(".text"), { duration: 0.1, opacity: 0 }, "<");
-  //   tl.to(q(".anim"), {
-  //     duration: 0.45,
-  //     rotate: gsap.utils.wrap([45 * 3, 45 * 5])
-  //   }, "-=0.6");
+    /*
+     * Spanning for any brick = S
+     * Grid's row-gap = G
+     * Size of grid's implicitly create row-track = R
+     * Height of item content = H
+     * Net height of the item = H1 = H + G
+     * Net height of the implicit row-track = T = G + R
+     * S = H1 / T
+     */
+    var rowSpan = Math.ceil((item.querySelector('.masonry-content').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
 
-  // // ---- Rotate ----
-  // tl.to(q(".inner"), { rotate: -90 });
-  // tl.to(q(".anim"), { y: 0 }, "<");
-  // tl.to(q(".anim"), {rotate: gsap.utils.wrap([45, -45])});
-  // tl.to(q(".text"), { duration: 0.1, opacity: 0 }, "<");
-
-  // // ---- Move out in ----
-  // tl.to(q(".inner span"), { xPercent: -150, stagger: 0.1 });
-  //   tl.set(q(".anim"), { y: 0 });
-  // tl.set(q(".anim"), {
-  //   duration: 0.45,
-  //   rotate: gsap.utils.wrap([45 * 3, 45 * 5])
-  // });
-  // tl.set(q(".text"), { opacity: 0 }, "<");
-  // tl.set(q(".inner span"), { xPercent: 0 });
-  // tl.set(q(".inner .anim"), { xPercent: 150 });
-  // tl.to(q(".inner .anim"), { xPercent: 0 });
-
-  // ---- Rotate animation ----
-  tl.to(q(".anim"), { y: 0 });
-  tl.to(q(".anim"), {
-    duration: 0.45,
-    rotate: gsap.utils.wrap([45 * 3, 45 * 5])
-  });
-  tl.to(q(".text"), { duration: 0.1, opacity: 0 }, "<");
-  tlMenuToggleAll.push(tl); // Capture all timelines
-  return tl;
-}
-// 👆 Click logic function
-function menuToggleClick(target) {
-  // Setup aria roles
-  target.setAttribute("aria-haspopup", "true");
-  target.setAttribute("aria-expanded", "false");
-  target.setAttribute("aria-controls", "navigation-slide");
-
-  // Click logic
-  target.addEventListener("click", (e) => {
-    e.preventDefault();
-    document.body.classList.toggle("showNavigationSlide");
-    menuSlideAnimation.reversed()
-      ? menuSlideAnimation.play()
-      : menuSlideAnimation.reverse();
-    tlMenuToggleAll.forEach((timeline, index) => {
-      timeline.reversed() ? timeline.play() : timeline.reverse();
-      // ♿️ Accessibility logic
-      menuToggle[index].setAttribute(
-        "aria-expanded",
-        menuToggle[index].getAttribute("aria-expanded") == "false"
-          ? "true"
-          : "false"
-      );
-    });
-  });
-}
-document.querySelectorAll(".menu-toggle").forEach((item) => {
-  const q = gsap.utils.selector(item);
-  const offset = item.getBoundingClientRect().height * 0.2;
-  // Ready function
-  function ready() {
-    // Add animation to button
-    if (item.tagName === "BUTTON") {
-      menuToggleAnimation(item);
+    /* Set the spanning as calculated above (S) */
+    item.style.gridRowEnd = 'span '+rowSpan;
+    if(gridImagesAsContent) {
+      item.querySelector('img.masonry-content').style.height = item.getBoundingClientRect().height + "px";
     }
-    // 👆 Add click logic
-    menuToggleClick(item);
   }
-  // Page load animation
-  const tl = gsap.timeline({
-    onComplete: () => ready()
-  });
-  // Animate only if item is a button
-  if (item.tagName === "BUTTON") {
-    tl.set(item, { autoAlpha: 1 });
-    tl.to(q(".anim"), {
-      y: gsap.utils.wrap([offset, -offset]),
-      duration: 0.15,
-      ease: "power4.in"
-    });
-    tl.from(q(".text"), { opacity: 0 });
+}
+
+/**
+ * Apply spanning to all the masonry items
+ *
+ * Loop through all the items and apply the spanning to them using 
+ * `resizeMasonryItem()` function.
+ *
+ * @uses resizeMasonryItem
+ * @link https://w3bits.com/css-grid-masonry/
+ */
+function resizeAllMasonryItems(){
+  // Get all item class objects in one list
+  var allItems = document.querySelectorAll('.masonry-item');
+
+  /*
+   * Loop through the above list and execute the spanning function to
+   * each list-item (i.e. each masonry item)
+   */
+  if( allItems ) {
+    for(var i=0;i>allItems.length;i++){
+      resizeMasonryItem(allItems[i]);
+    }
   }
-});
-// END Menu slide animation --------------//
+}
 
-document.querySelectorAll("#navigation-slide-large").forEach((container) => {
-  const q = gsap.utils.selector(container);
-  const tl = gsap.timeline({});
-  tl.to(container, {
-    clipPath: "circle(144% at 100% 0%)",
-    duration: 0.8,
-    ease: "power4.in"
-  });
-
-  tl.to(q("nav li"), {
-    backgroundImage:
-      "linear-gradient(90deg, var(--left) 0%, var(--left) 100%, var(--right) 100%)",
-    duration: 0.3,
-    stagger: {
-      each: 0.1,
-      ease: "power2.out"
+/**
+ * Resize the items when all the images inside the masonry grid 
+ * finish loading. This will ensure that all the content inside our
+ * masonry items is visible.
+ *
+ * @uses ImagesLoaded
+ * @uses resizeMasonryItem
+ * @link https://w3bits.com/css-grid-masonry/
+ */
+function waitForImages() {
+  //var grid = document.getElementById("masonry");
+  var allItems = document.querySelectorAll('.masonry-item');
+  if( allItems ) {
+    for(var i=0;i<allItems.length;i++){
+      imagesLoaded( allItems[i], function(instance) {
+        var item = instance.elements[0];
+        resizeMasonryItem(item);
+        console.log("Waiting for Images");
+      } );
     }
-  });
+  }
+}
 
-  tl.to(q(".extra-content .alloy-card"), {
-    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+/* Resize all the grid items on the load and resize events */
+var masonryEvents = ['load', 'resize'];
+masonryEvents.forEach( function(event) {
+  window.addEventListener(event, resizeAllMasonryItems);
+} );
 
-    duration: 0.3,
-    stagger: {
-      each: 0.1,
-      ease: "power2.out"
-    }
-  });
-});
+/* Do a resize once more when all the images finish loading */
+waitForImages();
