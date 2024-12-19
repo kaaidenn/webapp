@@ -39,12 +39,11 @@ body {
   color: #402d41;
   background-color: #fafafa;
   background-image: url("https://ik.imagekit.io/bsz353hxj/art/rb_1873.png?updatedAt=1734023074529");
-  background-size: cover;
+  background-size: auto;
   background-position: center;
   line-height: 1.8;
   margin-bottom: 10rem;
 }
-
 body::before {
   content: "";
   position: absolute;
@@ -68,7 +67,6 @@ body::before {
     filter: hue-rotate(-30deg) brightness(0.8); /* Con filtro */
   }
 }
-
 /* Header with logo area */
 header {
   color: #7f3981;

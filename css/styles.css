@@ -44,29 +44,6 @@ body {
   line-height: 1.8;
   margin-bottom: 10rem;
 }
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://ik.imagekit.io/bsz353hxj/art/rb_1873.png?updatedAt=1734023074529");
-  background-size: cover;
-  background-position: center;
-  z-index: -1; /* Mantiene el fondo detrás del contenido */
-  filter: none; /* Estado inicial: sin filtro */
-  animation: filterAnimation 5s infinite alternate; /* Animación cíclica */
-}
-
-@keyframes filterAnimation {
-  0% {
-    filter: none; /* Sin filtro */
-  }
-  100% {
-    filter: hue-rotate(-30deg) brightness(0.8); /* Con filtro */
-  }
-}
 /* Header with logo area */
 header {
   color: #7f3981;
